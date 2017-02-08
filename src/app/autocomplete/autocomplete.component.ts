@@ -1,21 +1,35 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-autocomplete',
   templateUrl: './autocomplete.component.html',
   styleUrls: ['./autocomplete.component.scss']
 })
-export class AutocompleteComponent implements OnInit {
+export class AutocompleteComponent {
 
   @Input() keywords = [];
-  inputText: string;
+  inputText: string = "";
+  matchingText = [];
+  searchingForMatch: boolean;
 
-  constructor() { }
-
-  ngOnInit() {
+  onInputChange(event: any) {
+    if (this.inputText.length >= 3) {
+      this.findMatch();
+      this.searchingForMatch = true;
+    }
+    else {
+      this.searchingForMatch = false;
+    }
   }
 
-  onKeyPress(event: any){
-    console.log("Key has been pressed");
+  findMatch() {
+    this.matchingText = this.filterItems(this.inputText);
   }
+
+  filterItems(query) {
+    return this.keywords.filter((el) =>
+      el.toLowerCase().indexOf(query.toLowerCase()) > -1
+    )
+  }
+
 }
