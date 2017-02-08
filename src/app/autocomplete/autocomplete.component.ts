@@ -23,13 +23,18 @@ export class AutocompleteComponent {
   }
 
   findMatch() {
-    this.matchingText = this.filterItems(this.inputText);
+    this.matchingText = this.filterText(this.inputText);
   }
 
-  filterItems(query) {
+  filterText(query) {
     return this.keywords.filter((el) =>
       el.toLowerCase().indexOf(query.toLowerCase()) > -1
     )
+  }
+
+  selectTextToAutocomplete(index){
+    this.inputText = this.matchingText[index];
+    this.matchingText = [];
   }
 
 }

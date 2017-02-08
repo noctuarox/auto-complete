@@ -1,7 +1,11 @@
-<div>
+<div class="autocomplete-container">
   <input type="text" [(ngModel)]="inputText" (input)="onInputChange($event)">
-  <p>Input field text: {{inputText}}</p>
-  <p>Keywords array: {{keywords}}</p>
-  <p *ngIf="searchingForMatch">searching for match...</p>
-  <p>Found words: {{matchingText}}</p>
+  <div class="dropdown-container">
+    <div *ngFor="let item of matchingText; let i = index" class="dropdown-item"
+         (click)="selectTextToAutocomplete(i)">
+      <span *ngIf="searchingForMatch">
+        {{matchingText[i]}}
+      </span>
+    </div>
+  </div>
 </div>

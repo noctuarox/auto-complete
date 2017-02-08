@@ -1,0 +1,42 @@
+$component-width: 400px;
+$autocomplete-border: solid 1px grey;
+
+.autocomplete-container {
+  width: $component-width;
+  padding: 30px 40px 30px 20px;
+  position: absolute;
+}
+
+input, .dropdown-container {
+  background-color: white;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16),0 0 0 1px rgba(0,0,0,0.08);
+  padding: 0 10px;
+  color: black;
+  font-size: 20px;
+}
+
+input {
+  width: 100%;
+  outline: none;
+  height: 40px;
+  margin-bottom: 20px;
+  border: none;
+}
+
+.dropdown-container {
+  position: absolute;
+  margin-top: -21px;
+}
+
+.dropdown-item {
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: aquamarine;
+}
+
+.dropdown-item, .dropdown-container {
+  width: $component-width;
+}
+
