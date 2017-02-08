@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-autocomplete',
@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AutocompleteComponent implements OnInit {
 
+  @Input() keywords = [];
+  inputText: string;
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  onKeyPress(event: any){
+    console.log("Key has been pressed");
+  }
 }
