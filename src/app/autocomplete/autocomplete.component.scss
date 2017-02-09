@@ -13,6 +13,7 @@ input, .dropdown-container {
   padding: 0 10px;
   color: black;
   font-size: 20px;
+  font-weight: normal;
 }
 
 input {
@@ -26,17 +27,24 @@ input {
 .dropdown-container {
   position: absolute;
   margin-top: -21px;
+  width: $component-width + 20px;
+  padding: 0;
 }
 
 .dropdown-item {
   cursor: pointer;
+  padding: 0;
+  outline: none;
+  width: $component-width + 20px;
 }
 
-.dropdown-item:hover {
-  background-color: aquamarine;
+.dropdown-item-content {
+  padding-left: 10px;
 }
 
-.dropdown-item, .dropdown-container {
-  width: $component-width;
+.dropdown-item:hover , .dropdown-item:focus{
+  background-color: #f3f3f3;
 }
+
+
 
