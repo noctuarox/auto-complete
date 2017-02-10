@@ -14,9 +14,14 @@ export class AutocompleteComponent implements OnInit {
 
   onInputChange(event: any) {
     if (this.inputText.length >= 3) {
-      this.matchingText = this.keywords.filter((el) =>
-        el.toLowerCase().indexOf(this.inputText.toLowerCase()) > -1
+      this.matchingText = this.keywords.filter(word => {
+          console.log(this.matchingText.length);
+          return this.inputText.startsWith(word.toLowerCase().slice(0, this.inputText.length));
+        }
       );
+      if (this.matchingText.length > 4) { // limitation of number of suggested keywords
+        this.matchingText.splice(5);
+      }
       this.searchingForMatch = true;
     }
     else {
@@ -32,26 +37,24 @@ export class AutocompleteComponent implements OnInit {
   }
 
   constructor(private renderer: Renderer) {
-
   }
 
   ngOnInit() {
     document.addEventListener('keydown', (event) => {
       let tabIndex = (<HTMLElement>document.activeElement).tabIndex;
-      if (event.key === 'ArrowUp') {
-        tabIndex--;
-      }
-      if (event.key === 'ArrowDown') {
-        console.log("arrowdown");
-        tabIndex++;
+      switch (event.key) {
+        case 'ArrowUp':
+          if (tabIndex >= 2) tabIndex--;
+          break;
+        case 'ArrowDown':
+          if (tabIndex <= this.matchingText.length) tabIndex++;
+          break;
+        case 'Enter':
+          tabIndex = 1;
       }
       const elementToFocus = document.querySelector(`[tabindex="${tabIndex}"]`);
-      console.log(`tabindex="${tabIndex}"`);
-      console.log({tabIndex});
       this.renderer.invokeElementMethod(elementToFocus, 'focus', []);
     }, false);
   }
-
-
 }
 

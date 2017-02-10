@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   keywords = [
-    'dog', 'apple', 'pineapple', 'plane'
+    'dog', 'apple', 'pineapple', 'plane', 'pineapples', 'apples', 'Apple', 'pins', 'pint', 'pink', 'pinkie'
   ]
 }
