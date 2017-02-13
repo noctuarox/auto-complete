@@ -15,7 +15,7 @@ export class AutocompleteComponent implements OnInit {
   onInputChange(event: any) {
     if (this.inputText.length >= 3) {
       this.matchingText = this.keywords.filter(word => {
-          console.log(this.matchingText.length);
+          if(word.length>this.inputText.length)
           return this.inputText.startsWith(word.toLowerCase().slice(0, this.inputText.length));
         }
       );
