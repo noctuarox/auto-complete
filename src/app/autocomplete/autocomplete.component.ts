@@ -28,6 +28,7 @@ export class AutocompleteComponent {
     else {
       this.searchingForMatch = false;
     }
+    this.arrowIndexCounter = -1; // always set index of focusable keywords to initial value
   }
 
   selectTextToAutocomplete(event: any, item: string) {
@@ -42,18 +43,19 @@ export class AutocompleteComponent {
     if (this.matchingText.length > 0) {
       switch (event.key) {
         case 'ArrowUp':
-          if (this.arrowIndexCounter >= 0)
+          if (this.arrowIndexCounter >= 0 && this.searchingForMatch)
             this.arrowIndexCounter--;
           break;
         case 'ArrowDown':
-          if (this.arrowIndexCounter < this.matchingText.length - 1)
+          if (this.arrowIndexCounter < this.matchingText.length - 1 && this.searchingForMatch)
             this.arrowIndexCounter++;
           break;
         case 'Enter':
-          if (this.arrowIndexCounter > 0) {
-            this.inputText = this.keywords[this.arrowIndexCounter + 1];
+          if (this.arrowIndexCounter >= 0) {
+            this.inputText = this.matchingText[this.arrowIndexCounter];
             this.searchingForMatch = false;
           }
+          if (this.arrowIndexCounter === -1) this.searchingForMatch = false;
       }
     }
   }
