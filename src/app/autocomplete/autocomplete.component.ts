@@ -23,7 +23,7 @@ export class AutocompleteComponent {
       if (this.matchingText.length > 4) { // limitation of number of suggested keywords
         this.matchingText.splice(5);
       }
-      this.searchingForMatch = true;
+      if (this.matchingText.length > 0) this.searchingForMatch = true;
     }
     else {
       this.searchingForMatch = false;
