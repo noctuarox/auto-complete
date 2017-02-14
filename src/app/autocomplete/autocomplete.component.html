@@ -1,11 +1,11 @@
 <div class="autocomplete-container">
-  <input [tabindex]="1" type="text" [(ngModel)]="inputText" (input)="onInputChange($event)"
+  <input type="text" [(ngModel)]="inputText" (input)="onInputChange($event)"
          (keydown)="handleKeydownEvent($event)">
   <div *ngIf="searchingForMatch" class="dropdown-container">
     <div *ngFor="let item of matchingText; let i = index" class="dropdown-item"
          [ngClass]="{'dropdown-item-pseudofocus' : i == arrowIndexCounter}"
-         (click)="selectTextToAutocomplete($event, item)">
-      <span *ngIf="searchingForMatch" class="dropdown-item-content">
+         (click)="selectTextToAutocomplete(item)">
+      <span class="dropdown-item-content">
         {{item}}
       </span>
     </div>

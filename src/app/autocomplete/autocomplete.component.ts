@@ -8,32 +8,28 @@ import { Component, Input } from '@angular/core';
 export class AutocompleteComponent {
 
   @Input() keywords = [];
-  inputText: string = "";
+  inputText: string = '';
   matchingText = [];
-  searchingForMatch: boolean;
   arrowIndexCounter: number = -1; // so that initially input field has no valid index
 
-  onInputChange(event: any) {
-    if (this.inputText.length >= 3) {
+  onInputChange(event) {
+    const shortestStringLength = 3; // shortest length of input text required to start searching for keywords
+    const numberOfSuggestedKeywords = 5; // number of keywords suggested by autocomplete
+    if (this.inputText.length >= shortestStringLength && event.target.value) {
       this.matchingText = this.keywords.filter(word => {
-          if (word.length > this.inputText.length)
-            return this.inputText.startsWith(word.toLowerCase().slice(0, this.inputText.length));
+          if (word.length > this.inputText.length) return word.startsWith(this.inputText.toLowerCase());
         }
       );
-      if (this.matchingText.length > 4) { // limitation of number of suggested keywords
-        this.matchingText.splice(5);
-      }
-      if (this.matchingText.length > 0) this.searchingForMatch = true;
+      this.matchingText.splice(numberOfSuggestedKeywords);
     }
     else {
-      this.searchingForMatch = false;
+      this.matchingText = [];
     }
     this.arrowIndexCounter = -1; // always set index of focusable keywords to initial value
   }
 
-  selectTextToAutocomplete(event: any, item: string) {
+  selectTextToAutocomplete(item: string) {
     this.inputText = item;
-    this.searchingForMatch = false;
   }
 
   constructor() {
@@ -51,12 +47,15 @@ export class AutocompleteComponent {
             this.arrowIndexCounter++;
           break;
         case 'Enter':
-          if (this.arrowIndexCounter >= 0) {
-            this.inputText = this.matchingText[this.arrowIndexCounter];
-            this.searchingForMatch = false;
-          }
-          if (this.arrowIndexCounter === -1) this.searchingForMatch = false;
+          if (this.arrowIndexCounter >= 0) this.inputText = this.matchingText[this.arrowIndexCounter];
+          if (this.arrowIndexCounter === -1) this.matchingText = [];
+
       }
     }
+  }
+
+  get
+  searchingForMatch() {
+    return this.matchingText.length > 0
   }
 }
