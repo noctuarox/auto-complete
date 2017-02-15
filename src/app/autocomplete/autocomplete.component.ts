@@ -16,9 +16,8 @@ export class AutocompleteComponent {
     const shortestStringLength = 3; // shortest length of input text required to start searching for keywords
     const numberOfSuggestedKeywords = 5; // number of keywords suggested by autocomplete
     if (this.inputText.length >= shortestStringLength && event.target.value) {
-      this.matchingText = this.keywords.filter(word => {
-          if (word.length > this.inputText.length) return word.startsWith(this.inputText.toLowerCase());
-        }
+      this.matchingText = this.keywords.filter(
+        word => word.length > this.inputText.length && word.toLowerCase().startsWith(this.inputText.toLowerCase())
       );
       this.matchingText.splice(numberOfSuggestedKeywords);
     }
